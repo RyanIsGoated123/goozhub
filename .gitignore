@@ -3,3 +3,5 @@ dist
 data
 admin-password.txt
 .env
+.dev.vars
+.wrangler
