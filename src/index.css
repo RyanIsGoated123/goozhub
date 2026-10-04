@@ -189,9 +189,6 @@ h1 { margin: 8px 0 4px; font-size: 28px; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .accent { color: var(--orange); }
-.gate { background: #000; flex-direction: column; gap: 32px; z-index: 30; display: flex; align-items: center; justify-content: center; }
-.gate-logo { width: min(320px, 80vw); }
-.gate-btn { font-size: 20px; padding: 14px 40px; }
 .btn.danger { background: #e53935; color: #fff; }
 a.btn { text-decoration: none; }
 .admin-table { width: 100%; border-collapse: collapse; margin-top: 16px; }

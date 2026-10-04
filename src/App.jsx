@@ -56,23 +56,26 @@ export default function App() {
   const [file, setFile] = useState(null);
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
-  const [gate, setGate] = useState(false);
   const playing = useRef(new Set());
 
   useEffect(() => {
     if (!INTRO || introStarted) return;
     introStarted = true;
 
+    const start = () => INTRO.audio.play().then(() => playing.current.add(INTRO.audio));
+    // Browsers block sound until the visitor interacts, so retry on the first gesture.
     INTRO.audio.play().then(
       () => playing.current.add(INTRO.audio),
-      () => setGate(true) // browsers block sound until the visitor clicks something
+      () => {
+        const events = ["pointerup", "click", "keydown", "touchend"];
+        const once = () => {
+          events.forEach((e) => window.removeEventListener(e, once));
+          start();
+        };
+        events.forEach((e) => window.addEventListener(e, once));
+      }
     );
   }, []);
-
-  function enter() {
-    setGate(false);
-    INTRO.audio.play().then(() => playing.current.add(INTRO.audio));
-  }
 
   useEffect(() => {
     fetch("/api/visit", { method: "POST" })
@@ -143,14 +146,6 @@ export default function App() {
 
   return (
     <>
-      {gate && (
-        <div className="overlay gate">
-          <img className="gate-logo" src={logo} alt="GoozHub" />
-          <button type="button" className="btn gate-btn" autoFocus onClick={enter}>
-            Enter
-          </button>
-        </div>
-      )}
       <header className="topbar">
         <img className="logo" src={logo} alt="GoozHub" />
         <div className="search">
