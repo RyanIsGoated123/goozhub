@@ -9,6 +9,8 @@
     "not_found_handling": "single-page-application",
     "run_worker_first": ["/api/*", "/uploads/*"]
   },
-  "r2_buckets": [{ "binding": "SOUNDS_BUCKET" }],
-  "d1_databases": [{ "binding": "DB" }]
+  "r2_buckets": [{ "binding": "SOUNDS_BUCKET", "bucket_name": "goozhub-sounds" }],
+  "d1_databases": [
+    { "binding": "DB", "database_name": "goozhub-db", "database_id": "c5aa5683-820a-457a-a50a-d0c5de87b25e" }
+  ]
 }
